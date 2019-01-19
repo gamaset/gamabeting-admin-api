@@ -10,25 +10,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.gamabettingadminapi.model.CustomerModel;
-import com.gamaset.gamabettingadminapi.service.CustomerService;
-
+import com.gamaset.gamabettingadminapi.model.Manager;
+import com.gamaset.gamabettingadminapi.service.ManagerService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/api/v1/customers")
-public class CustomerEndpoint {
+@RequestMapping(value = "/api/v1/managers")
+public class ManagerEndpoint {
 
 	@Autowired
-	private CustomerService service;
+	private ManagerService service;
 	
 	@GetMapping(produces = APPLICATION_JSON_UTF8_VALUE)
-	public GenericResponse<CustomerModel> list() {
-		return new GenericResponse<CustomerModel>(service.list());
+	public GenericResponse<Manager> list() {
+		return new GenericResponse<Manager>(service.list());
 	}
-	
+
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-	public CustomerModel create(@RequestBody CustomerModel request) {
+	public Manager create(@RequestBody Manager request) {
 		return service.insert(request);
 	}
 

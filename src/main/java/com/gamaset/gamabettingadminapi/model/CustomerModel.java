@@ -21,11 +21,11 @@ public class CustomerModel {
 	@Column(name = "desc_nome", nullable = false)
 	private String name;
 
-	@Column(name = "cpf")
-	private Long taxId;
+	@Column(name = "cpf", nullable = false, unique = true)
+	private String taxId;
 
 	@ManyToOne
-	@JoinColumn(name = "id_agente_fk")
+	@JoinColumn(name = "id_agente_fk", nullable = false)
 	private Agent agent;
 
 	public Long getId() {
@@ -44,20 +44,20 @@ public class CustomerModel {
 		this.name = name;
 	}
 
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
 	public Agent getAgent() {
 		return agent;
 	}
 
 	public void setAgent(Agent agent) {
 		this.agent = agent;
-	}
-
-	public Long getTaxId() {
-		return taxId;
-	}
-
-	public void setTaxId(Long taxId) {
-		this.taxId = taxId;
 	}
 
 }

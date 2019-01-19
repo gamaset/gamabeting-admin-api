@@ -7,17 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "agente")
-public class Agent {
+@Table(name = "gerente")
+public class Manager {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_agente")
+	@Column(name = "id_gerente")
 	private Long id;
 
 	@Column(name = "nome", nullable = false)
@@ -25,16 +23,12 @@ public class Agent {
 
 	@Column(name = "apelido", nullable = false, unique = true)
 	private String nickname;
-	
+
 	@Column(name = "cpf", nullable = false, unique = true)
 	private String taxId;
 
 	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate birthDate;
-	
-	@JoinColumn(name = "id_gerente_fk", nullable = false)
-	@ManyToOne
-	private Manager manager;
 
 	public Long getId() {
 		return id;
@@ -74,14 +68,6 @@ public class Agent {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public Manager getManager() {
-		return manager;
-	}
-
-	public void setManager(Manager manager) {
-		this.manager = manager;
 	}
 
 }
