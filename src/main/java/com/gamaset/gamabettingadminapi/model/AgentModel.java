@@ -11,32 +11,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 @Entity
-@Table(name = "cliente")
-public class CustomerModel extends Auditable {
+@Table(name = "agente")
+public class AgentModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_cliente")
+	@Column(name = "id_agente")
 	private Long id;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario_fk", nullable = false)
 	private UserModel user;
 
+	@JoinColumn(name = "id_gerente_fk", nullable = false)
 	@ManyToOne
-	@JoinColumn(name = "id_agente_fk", nullable = false)
-	private AgentModel agent;
-
-	public UserModel getUser() {
-		return user;
-	}
-
-	public void setUser(UserModel user) {
-		this.user = user;
-	}
+	private ManagerModel manager;
 
 	public Long getId() {
 		return id;
@@ -46,16 +36,12 @@ public class CustomerModel extends Auditable {
 		this.id = id;
 	}
 
-	public AgentModel getAgent() {
-		return agent;
+	public ManagerModel getManager() {
+		return manager;
 	}
 
-	public void setAgent(AgentModel agent) {
-		this.agent = agent;
+	public void setManager(ManagerModel manager) {
+		this.manager = manager;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
 }

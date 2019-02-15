@@ -2,7 +2,7 @@ spring:
   application:
     name: gamabetting-admin-api
   dataSource:
-    url: "jdbc:mysql://localhost:3306/gamabeting-admin?useTimezone=true&serverTimezone=UTC"
+    url: "jdbc:mysql://localhost:3306/betwin_admin?useTimezone=true&serverTimezone=UTC"
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,7 +16,13 @@ spring:
 server:
   port: 8080
   servlet:
-    context-path: /admin
-security:
-  sessions: NEVER
+    context-path: /betwin-admin
+#security:
+#  sessions: NEVER
   
+
+# app params
+betwin:
+  security:
+    jwtSecret: meuPauDeTanga
+    jwtExpiration: 86400

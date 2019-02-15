@@ -1,8 +1,15 @@
-package com.gamaset.gamabettingadminapi.vo;
+package com.gamaset.gamabettingadminapi.security;
 
-public class User {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+public class LoginForm {
+	@NotBlank
+	@Size(min = 3, max = 60)
 	private String username;
+
+	@NotBlank
+	@Size(min = 6, max = 40)
 	private String password;
 
 	public String getUsername() {
@@ -20,10 +27,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	@Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password + "]";
-	}
-
 }

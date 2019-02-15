@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class BankingDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_dado_bancario")
 	private Long id;
 

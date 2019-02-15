@@ -4,8 +4,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.gamaset.gamabettingadminapi.model.AgentModel;
+import com.gamaset.gamabettingadminapi.model.CompetitionModel;
 
 @Repository
-public interface AgentRepository extends PagingAndSortingRepository<AgentModel, Long> {
+public interface CompetitionRepository extends PagingAndSortingRepository<CompetitionModel, Long> {
 
 }

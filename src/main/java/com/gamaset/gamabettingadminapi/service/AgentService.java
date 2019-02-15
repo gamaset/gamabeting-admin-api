@@ -5,21 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gamaset.gamabettingadminapi.model.Agent;
+import com.gamaset.gamabettingadminapi.model.AgentModel;
 import com.gamaset.gamabettingadminapi.repository.AgentRepository;
+import com.gamaset.gamabettingadminapi.security.SHA512Hasher;
 
 @Service
 public class AgentService {
 
 	@Autowired
 	private AgentRepository agentRepository;
-	
-	public List<Agent> list(){
-		return (List<Agent>) agentRepository.findAll();
+
+	@Autowired
+	private SHA512Hasher passHasher;
+
+	public List<AgentModel> list() {
+		return (List<AgentModel>) agentRepository.findAll();
 	}
 
-	public Agent insert(Agent request) {
+	public AgentModel insert(AgentModel request) {
+		// TODO: add validation component
+
+//		request.setPassword(passHasher.hash(request.getPassword()));
+
 		return agentRepository.save(request);
 	}
-	
+
 }

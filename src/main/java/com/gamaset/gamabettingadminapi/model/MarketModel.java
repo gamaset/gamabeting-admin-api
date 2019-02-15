@@ -2,28 +2,28 @@ package com.gamaset.gamabettingadminapi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "banco")
-public class Bank {
+@Table(name = "mercado")
+public class MarketModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_banco")
-	private Long id;
+	@Column(name = "id_mercado", nullable = false)
+	private String id;
 
 	@Column(name = "descricao", nullable = false)
 	private String description;
 
-	public Long getId() {
+	@Column(name = "odd", nullable = false)
+	private Double odd;
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -33,6 +33,14 @@ public class Bank {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Double getOdd() {
+		return odd;
+	}
+
+	public void setOdd(Double odd) {
+		this.odd = odd;
 	}
 
 }

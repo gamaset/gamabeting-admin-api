@@ -8,17 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "banco")
-public class Bank {
+@Table(name = "pais")
+public class CountryModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_banco")
+	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "descricao", nullable = false)
-	private String description;
+	@Column(name = "codigo", unique = true, nullable = false)
+	private String code;
 
+	public CountryModel(String code) {
+		this.code = code;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -27,12 +31,12 @@ public class Bank {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getCode() {
+		return code;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
