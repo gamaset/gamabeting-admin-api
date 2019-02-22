@@ -2,12 +2,11 @@ package com.gamaset.gamabettingadminapi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +18,20 @@ public class ManagerModel {
 	@Column(name = "id_gerente")
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_usuario_fk", nullable = false)
 	private UserModel user;
+	
+	public ManagerModel() {
+	}
+
+	public ManagerModel(Long managerId) {
+		this.id = managerId;
+	}
+
+	public ManagerModel(UserModel userCreated) {
+		this.user = userCreated;
+	}
 
 	public Long getId() {
 		return id;

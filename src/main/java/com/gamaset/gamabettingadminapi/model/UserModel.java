@@ -15,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password"})
 @Entity
 @Table(name = "usuario", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
 		@UniqueConstraint(columnNames = { "email" }), @UniqueConstraint(columnNames = { "cpf" }) })
@@ -41,8 +44,11 @@ public class UserModel extends Auditable {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_regras", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_regra"))
+	@JoinTable(name = "usuario_regras", joinColumns = @JoinColumn(name = "id_usuario", nullable = false), inverseJoinColumns = @JoinColumn(name = "id_regra", nullable = false))
 	private Set<Role> roles = new HashSet<>();
+
+	public UserModel() {
+	}
 
 	public UserModel(String name, String username, String email, String password, String taxId) {
         this.name = name;
@@ -52,9 +58,10 @@ public class UserModel extends Auditable {
         this.taxId = taxId;
     }
 	
-	public UserModel() {
+	public UserModel(Long userId) {
+		this.id = userId;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -111,4 +118,7 @@ public class UserModel extends Auditable {
 		this.roles = roles;
 	}
 
+	public void addRole(Role role) {
+		this.roles.add(role);
+	}
 }

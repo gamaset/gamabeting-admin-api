@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamaset.gamabettingadminapi.endpoint.schema.ManagerRequest;
 import com.gamaset.gamabettingadminapi.model.ManagerModel;
 import com.gamaset.gamabettingadminapi.service.ManagerService;
 
@@ -31,7 +32,7 @@ public class ManagerEndpoint {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-	public ManagerModel create(@RequestBody ManagerModel request) {
+	public ManagerModel create(@RequestBody ManagerRequest request) {
 		return service.insert(request);
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamaset.gamabettingadminapi.endpoint.schema.CustomerRequest;
 import com.gamaset.gamabettingadminapi.model.CustomerModel;
 import com.gamaset.gamabettingadminapi.service.CustomerService;
 
@@ -28,7 +29,7 @@ public class CustomerEndpoint {
 	}
 	
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-	public CustomerModel create(@RequestBody CustomerModel request) {
+	public CustomerModel create(@RequestBody CustomerRequest request) {
 		return service.insert(request);
 	}
 

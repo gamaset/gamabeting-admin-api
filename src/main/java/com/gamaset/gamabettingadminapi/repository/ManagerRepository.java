@@ -8,4 +8,5 @@ import com.gamaset.gamabettingadminapi.model.ManagerModel;
 @Repository
 public interface ManagerRepository extends PagingAndSortingRepository<ManagerModel, Long> {
 
+	public ManagerModel findByUserId(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.gamaset.gamabettingadminapi.security;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +55,10 @@ public class AuthService {
 		return new SignInResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities());
 	}
 
-	public void signUp(SignUpRequest signUpRequest) {
+	public UserModel signUp(SignUpRequest signUpRequest) {
 		verifyIfUsernameAlreadyTaken(signUpRequest.getUsername());
 		verifyIfEmailAlreadyUse(signUpRequest.getEmail());
-		
+
 		UserModel user = new UserModel(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()), signUpRequest.getTaxId());
 
@@ -65,42 +66,48 @@ public class AuthService {
 		Set<Role> roles = verifyRoles(strRoles);
 
 		user.setRoles(roles);
-		userRepository.save(user);
+		return userRepository.save(user);
 
 	}
 
 	private Set<Role> verifyRoles(Set<String> strRoles) {
 		Set<Role> roles = new HashSet<>();
-		strRoles.forEach(role -> {
-			switch (role) {
-			case "ADMIN":
-				Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-						.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
-				roles.add(adminRole);
+		if (Objects.isNull(strRoles)) {
+			Role userRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER)
+					.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				switch (role) {
+				case "ADMIN":
+					Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+							.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
+					roles.add(adminRole);
 
-				break;
-			case "AGENT":
-				Role agentRole = roleRepository.findByName(RoleName.ROLE_AGENT)
-						.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
-				roles.add(agentRole);
+					break;
+				case "AGENT":
+					Role agentRole = roleRepository.findByName(RoleName.ROLE_AGENT)
+							.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
+					roles.add(agentRole);
 
-				break;
-			case "MANAGER":
-				Role managerRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
-				.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
-				roles.add(managerRole);
-				
-				break;
-			default:
-				Role userRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER)
-						.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
-				roles.add(userRole);
-			}
-		});
+					break;
+				case "MANAGER":
+					Role managerRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
+							.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
+					roles.add(managerRole);
+
+					break;
+				default:
+					Role userRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER)
+							.orElseThrow(() -> new NotFoundException("Fail! -> Cause: User Role not find."));
+					roles.add(userRole);
+				}
+			});
+		}
 
 		return roles;
 	}
-	
+
 	private void verifyIfUsernameAlreadyTaken(String username) {
 		if (userRepository.existsByUsername(username)) {
 			throw new UserAlreadyTakenException("Fail -> Username is already taken!");

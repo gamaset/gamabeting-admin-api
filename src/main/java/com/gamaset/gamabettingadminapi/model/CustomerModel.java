@@ -2,13 +2,11 @@ package com.gamaset.gamabettingadminapi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,13 +20,21 @@ public class CustomerModel extends Auditable {
 	@Column(name = "id_cliente")
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_usuario_fk", nullable = false)
 	private UserModel user;
 
 	@ManyToOne
 	@JoinColumn(name = "id_agente_fk", nullable = false)
 	private AgentModel agent;
+
+	public CustomerModel() {
+	}
+	
+	public CustomerModel(UserModel userCreated, AgentModel agentModel) {
+		this.user = userCreated;
+		this.agent = agentModel;
+	}
 
 	public UserModel getUser() {
 		return user;
