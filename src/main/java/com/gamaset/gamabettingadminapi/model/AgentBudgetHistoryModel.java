@@ -12,31 +12,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "agente")
-public class AgentModel {
+@Table(name = "agente_orcamento_historico")
+public class AgentBudgetHistoryModel extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_agente")
 	private Long id;
 
-	@JoinColumn(name = "id_usuario_fk", nullable = false)
+	@JoinColumn(name = "id_agente_fk", nullable = false)
 	@ManyToOne
-	private UserModel user;
-
-	@JoinColumn(name = "id_gerente_fk", nullable = false)
-	@ManyToOne
-	private ManagerModel manager;
+	private AgentModel agent;
 
 	@Column(name = "valor_limite_orcamento")
 	private BigDecimal budget = new BigDecimal("0.00");
 
-	public AgentModel() {
+	public AgentBudgetHistoryModel() {
 	}
 
-	public AgentModel(UserModel user, ManagerModel manager) {
-		this.user = user;
-		this.manager = manager;
+	public AgentBudgetHistoryModel(AgentModel agent, BigDecimal budget) {
+		this.agent = agent;
+		this.budget = budget;
 	}
 
 	public Long getId() {
@@ -47,20 +43,12 @@ public class AgentModel {
 		this.id = id;
 	}
 
-	public ManagerModel getManager() {
-		return manager;
+	public AgentModel getAgent() {
+		return agent;
 	}
 
-	public void setManager(ManagerModel manager) {
-		this.manager = manager;
-	}
-
-	public UserModel getUser() {
-		return user;
-	}
-
-	public void setUser(UserModel user) {
-		this.user = user;
+	public void setAgent(AgentModel agent) {
+		this.agent = agent;
 	}
 
 	public BigDecimal getBudget() {

@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.gamaset.gamabettingadminapi.endpoint.schema.BetRequest;
 import com.gamaset.gamabettingadminapi.utils.HashUtils;
@@ -51,9 +52,9 @@ public class BetModel extends Auditable {
 	@ManyToOne
 	private CustomerModel customer;
 
-	public BetModel(BetRequest request, CustomerModel customer) {
+	public BetModel(BetRequest request, CustomerModel customer, BigDecimal commissionPercentConfig) {
 		this.hashId = HashUtils.generateHashId();
-		this.commissionPercent = new BigDecimal("0.10");
+		this.commissionPercent = commissionPercentConfig;
 		this.betValue = request.getBetValue();
 		calculateRelatedValues(request.getEvents());
 		this.status = PENDING;

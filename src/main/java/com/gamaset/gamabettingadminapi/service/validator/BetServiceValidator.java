@@ -11,7 +11,6 @@ public class BetServiceValidator {
 
 	public void validateInsert(BetRequest request) {
 		Objects.requireNonNull(request);
-		Objects.requireNonNull(request.getCustomerId(), "customerId must not be null");
 		Objects.requireNonNull(request.getBetValue(), "betValue must not be null");
 		Objects.requireNonNull(request.getEvents(), "events must not be null");
 		

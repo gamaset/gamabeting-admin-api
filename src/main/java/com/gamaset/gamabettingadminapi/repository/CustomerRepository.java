@@ -8,4 +8,6 @@ import com.gamaset.gamabettingadminapi.model.CustomerModel;
 @Repository
 public interface CustomerRepository extends PagingAndSortingRepository<CustomerModel, Long> {
 
+	CustomerModel findByUserId(Long id);
+
 }

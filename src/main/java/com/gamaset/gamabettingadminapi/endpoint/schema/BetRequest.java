@@ -8,7 +8,6 @@ import com.gamaset.gamabettingadminapi.model.EventModel;
 public class BetRequest {
 
 	private BigDecimal betValue;
-	private Long customerId;
 	private List<EventModel> events;
 
 	public BigDecimal getBetValue() {
@@ -17,14 +16,6 @@ public class BetRequest {
 
 	public void setBetValue(BigDecimal betValue) {
 		this.betValue = betValue;
-	}
-
-	public Long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
 	}
 
 	public List<EventModel> getEvents() {

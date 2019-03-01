@@ -27,7 +27,7 @@ public class BetEndpoint {
 	@Autowired
 	private BetService service;
 	
-	@PreAuthorize("hasRole('OPERATIONAL') or hasRole('CUSTOMER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('AGENT') or hasRole('CUSTOMER') or hasRole('ADMIN')")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public GenericResponse<BetResponse> list() {
 		return new GenericResponse<BetResponse>(service.list());
@@ -39,13 +39,13 @@ public class BetEndpoint {
 		return service.createBet(request);
 	}
 
-	@PreAuthorize("hasRole('OPERATIONAL') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('AGENT') or hasRole('ADMIN')")
 	@PatchMapping(value = "/{betId}", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public void updateStatus(@PathVariable("betId") Long betId, @RequestBody BetPatchRequest request) {
 		service.updateStatusBet(betId, request);
 	}
 
-	@PreAuthorize("hasRole('OPERATIONAL') or hasRole('CUSTOMER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('AGENT') or hasRole('CUSTOMER') or hasRole('ADMIN')")
 	@GetMapping(value = "/{betId}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public BetResponse getBet(@PathVariable("betId") Long betId) {
 		return service.getBet(betId);

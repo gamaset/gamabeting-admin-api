@@ -26,3 +26,5 @@ betwin:
   security:
     jwtSecret: meuPauDeTanga
     jwtExpiration: 86400
+  config:
+    commissionPercent: 0.10
